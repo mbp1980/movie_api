@@ -1,5 +1,6 @@
 const { response } = require("express");
 const express = require("express");
+const bodyParser = require("body-parser");
 morgan = require("morgan");
 uuid = require("uuid");
 const app = express();
@@ -11,9 +12,9 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 
 // middleware to detect errors
-app.use((err, req, next) => {
+app.use((err, req, res, next) => {
     console.error(err.stack);
-    response.status(500).send("Something broke!");
+    res.status(500).send("Something broke!");
 });
 
 // get requests
@@ -22,13 +23,46 @@ app.get("/", (req, res) => {
 });
 
 app.get("/movies", (req, res) => {
-    res.status(200).send(movies);
-    res.status(200).send("Successful GET request returning list of all movies");
+    res.json(movies);
+    res.send("Successful GET request returning data on ALL movies");
 });
 
-app.get("/documentation", (req, res) =>{
+app.get("/movies/:title", (req, res) => {
+    res.send("Successful GET request returning data on specific movie");
+});
+
+app.get("/genre/:title", (req, res) => {
+    res.send("Successful GET of movie genre by title");
+});
+
+app.get("/director/:title", (req, res) => {
+    res.send("Successful GET of movie directors by title");
+});
+
+app.get("/documentation", (req, res) => {
     res.sendFile("public/documentation.html",{root: __dirname});
 });
+
+//Post, put , and delete requests
+app.post("/users", (req, res) => {
+    res.send("Successful POST request - new user registered");
+ });
+
+ app.put("/users/:username", (req, res) => {
+    res.send("Successful PUT request - new user updated");
+ });
+
+ app.post("/users/:username/movies/:Title", (req, res) => {
+    res.send("Successful POST request - movie added");
+ });
+
+ app.delete("/users/:username/movies/:Title", (req, res) => {
+    res.send("Successful DELETE request - movie removed");
+ });
+
+ app.delete("/users/:username", (req, res) => {
+    res.send("Successful DELETE request - user deactivated");
+ });
 
 app.listen(8080, () => {
     console.log("your app is listening on port 8080");
@@ -55,7 +89,7 @@ let movies = [
     {
         title: "Best in Show",
         director: "Christopher Guest",
-        description: "Cornered by the DEA, convicted New York drug dealer Montgomery Brogan reevaluates his life in the 24 remaining hours before facing a seven-year jail term.",
+        description: "A 'behind the scenes' look into the highly competitive and cut-throat world of dog-shows through the eyes of a group of ruthless dog owners.",
         genre: "Comedy",
         starring:   
             ["Jennifer Coolidge",
@@ -73,7 +107,7 @@ let movies = [
         title: "The Royal Tenenbaums",
         director: "Wes Anderson,",
         description: "The eccentric members of a dysfunctional family reluctantly gather under the same roof for various reasons.", 
-        genre: "Comedy, Drama",
+        genre: ["Comedy, Drama"],
         starring: 	
             ["Danny Glover",
             "Gene Hackman",
@@ -91,7 +125,7 @@ let movies = [
         director: "John Landis",
         description: "An extremely pampered African Prince travels to Queens, New York, and goes undercover to find a wife that he can respect for her intelligence and will.", 
         genre: "Comedy",
-        Starring: 
+        starring: 
             ["Eddie Murphy",
             "Arsenio Hall",
             "James Earl Jones",
@@ -140,8 +174,8 @@ let movies = [
         title: "The Avengers",
         director: "Joss Whedon",
         description: "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
-        senre: ["Action, Adventure, Sci-Fi"],
-        Starring:  
+        genre: ["Action, Adventure, Sci-Fi"],
+        starring:  
             ["Robert Downey Jr.",
             "Chris Evans",
             "Mark Ruffalo",
@@ -176,7 +210,7 @@ let movies = [
 
     {
         title: "Pan's Labyrinth",
-        diretcor: "Guillermo del Toro",
+        director: "Guillermo del Toro",
         genre: ["Drama, Fantasy, War"],
         description: "In the Falangist Spain of 1944, the bookish young stepdaughter of a sadistic army officer escapes into an eerie but captivating fantasy world.", 
         starring: 
