@@ -35,8 +35,8 @@ app.get("/genre/:title", (req, res) => {
     res.send("Successful GET of movie genre by title");
 });
 
-app.get("/director/:title", (req, res) => {
-    res.send("Successful GET of movie directors by title");
+app.get("/director/:name", (req, res) => {
+    res.send("Successful GET request returning data on one director");
 });
 
 app.get("/documentation", (req, res) => {
@@ -52,11 +52,11 @@ app.post("/users", (req, res) => {
     res.send("Successful PUT request - new user updated");
  });
 
- app.post("/users/:username/movies/:Title", (req, res) => {
+ app.post("/users/:username/movies/:title", (req, res) => {
     res.send("Successful POST request - movie added");
  });
 
- app.delete("/users/:username/movies/:Title", (req, res) => {
+ app.delete("/users/:username/movies/:title", (req, res) => {
     res.send("Successful DELETE request - movie removed");
  });
 
