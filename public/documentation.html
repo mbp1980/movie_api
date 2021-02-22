@@ -69,14 +69,14 @@
             </td>
         </tr>
         <tr>
-            <td>Return the director name(s) by movie title name</td>
-            <td>/movies/title/director</td>
+            <td>Return array of data about a director (bio, birth year, death year) by name</td>
+            <td>/movies/director</td>
             <td>GET</td>
             <td>None</td>
             <td>
-                a JSON object returning names of directors by movie title
+                a JSON object holding data about a director and his bio by name like this:
                 {
-                director: "John Landis",
+                director: []
                 },
             </td>
         </tr>
