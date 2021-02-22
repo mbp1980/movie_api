@@ -1,11 +1,155 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>DOCUMENTATION</title>
-    </head>
-    <body>
-        <h1>Documentation Page</h1>
-        <p>This is where documentation about the movie app goes</p>
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Movie API</title>
+</head>
+
+<body>
+
+    <h4>OBJECTIVE</h4>
+    <p>
+        To build the server­side component of a “movies” web application. The web application will
+        provide users with access to information about different movies, directors, and genres. Users
+        will be able to sign up, update their personal information, and create a list of their favorite
+        movies.
+    </p>
+
+
+    <h4>Requirements</h4>
+
+    <table class="url_endpoints">
+        <tr>
+            <th>Request</th>
+            <th>URL</th>
+            <th>HTTP Method</th>
+            <th>Request body data format</th>
+            <th>Response body data format</th>
+        </tr>
+        <tr>
+            <td>Return data (description, genre, director, actors whether it’s featured or not) about a single movie
+                by
+                title to the user</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+                a JSON object holding data about a single movie by title like this:
+                {
+                    title: "Best in Show",
+                    director: "Christopher Guest",
+                    description: "A 'behind the scenes' look into the highly competitive and cut-throat world of dog-shows through the eyes of a group of ruthless dog owners.",
+                    genre: "Comedy",
+                    starring:   
+                        ["Jennifer Coolidge",
+                        "Christopher Guest",
+                        "John Michael Higgins",
+                        "Eugene Levy",
+                        "Jane Lynch",
+                        "Michael McKean",
+                        "Catherine O'Hara",
+                        "Parker Posey"],
+                    year: "2000",
+                    music: "C.J. Vanston"  
+                },
+
+            </td>
+        </tr>
+        <tr>
+            <td>Return data about a genre (description) by name/title (e.g., "Sci-Fi")</td>
+            <td>/movies/title/genre</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+                a JSON object holding data about a single movie's genre by title like this:
+                { title: "Black Panther", genre: ["Action, Adventure, Sci-Fi"],},
+                },
+            </td>
+        </tr>
+        <tr>
+            <td>Return the director name(s) by movie title name</td>
+            <td>/movies/title/director</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+                a JSON object returning names of directors by movie title
+                {
+                director: "John Landis",
+                },
+            </td>
+        </tr>
+        <tr>
+            <td>Allow new users to register</td>
+            <td>/users/registration</td>
+            <td>POST</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Allow users to update their user info (username)</td>
+            <td>/users</td>
+            <td>PUT</td>
+            <td>
+                A JSON object holding data about the user info to update, structured like:
+                {
+                name : "New Username",
+                email: newusername@email.com
+                }
+            </td>
+            <td>
+                A text message indicating the user info has been updated sucessfully.
+            </td>
+        </tr>
+        <tr>
+            <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been
+                added—more
+                on this later)</td>
+            <td>users/movies</td>
+            <td>PUT</td>
+            <td>
+                A JSON object holding data about the user info to add, structured like:
+                {
+                name : "User",
+                movies : {
+                title: '',
+                starring: []
+                }
+                }
+            </td>
+            <td>
+                A text message indicating the movie was added.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Allow users to remove a movie from their list of favorites (showing only a text that a movie has been
+                removed—more on this later)
+            </td>
+            <td>users/title</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>
+                A text message indicating the movie was removed
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Allow existing users to deregister (showing only a text that a user email has been removed—more on this
+                later)
+            </td>
+            <td>users/email</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>
+                A text message indicating that the user has been deleted
+            </td>
+        </tr>
+
+    </table>
+
+</body>
+
 </html>
