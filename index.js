@@ -1,3 +1,13 @@
+const mongoose = require("mongoose");
+const Models = require("./models.js");
+
+const Movies = Models.Movie;//model names defined in models.js
+const Users = Models.User;
+
+mongoose.connect("mongodb;//localhost:27017/myFlixDB",
+{useNewUrlParser: true, useUnifiedTopology: true});
+//this allows Mongoose to connect to that database so it can perform CRUD operations on the documents it contains
+
 const { response } = require("express");
 const express = require("express");
 const bodyParser = require("body-parser");
