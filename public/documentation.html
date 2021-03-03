@@ -8,8 +8,8 @@
 </head>
 
 <body>
-
-    <h4>OBJECTIVE</h4>
+    <h1>About the Movie API</h1>
+    <h2>OBJECTIVE</h2>
     <p>
         To build the server­side component of a “movies” web application. The web application will
         provide users with access to information about different movies, directors, and genres. Users
@@ -18,136 +18,243 @@
     </p>
 
 
-    <h4>Requirements</h4>
-
-    <table class="url_endpoints">
+    <h2>API Structure Reference</h2>
+    <table>
         <tr>
-            <th>Request</th>
-            <th>URL</th>
-            <th>HTTP Method</th>
-            <th>Request body data format</th>
-            <th>Response body data format</th>
+            <th>Description</th>
+            <th>Request Method</th>
+            <th>URL Endpoint</th>
+            <th>Query Parameters</th>
+            <th>Request Body Format</th>
+            <th>Response Body Format</th>
         </tr>
         <tr>
-            <td>Return data (description, genre, director, actors whether it’s featured or not) about a single movie
-                by
-                title to the user</td>
+            <td>Return list of all movies</td>
+            <td>GET</td>
             <td>/movies</td>
-            <td>GET</td>
             <td>None</td>
-            <td>
-                a JSON object holding data about a single movie by title like this:
-                {
-                    title: "Best in Show",
-                    director: "Christopher Guest",
-                    description: "A 'behind the scenes' look into the highly competitive and cut-throat world of dog-shows through the eyes of a group of ruthless dog owners.",
-                    genre: "Comedy",
-                    starring:   
-                        ["Jennifer Coolidge",
-                        "Christopher Guest",
-                        "John Michael Higgins",
-                        "Eugene Levy",
-                        "Jane Lynch",
-                        "Michael McKean",
-                        "Catherine O'Hara",
-                        "Parker Posey"],
-                    year: "2000",
-                    music: "C.J. Vanston"  
-                },
-
+            <td>None</td>
+            <td>A JSON object with a list of movies. Structure example:
+                <br>{
+                    "Genre": {
+                        "Name": "Comedy",
+                        "Description": "Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect."
+                    },
+                    "Director": {
+                        "Name": "Christopher Guest",
+                        "Bio": "Christopher Guest is an American–British screenwriter, composer, musician, director, actor, and comedian. Guest is most widely known in Hollywood for having written, directed, and starred in his series of comedy films shot in mock-documentary (mockumentary) style. Many scenes and character backgrounds in Guest's films are written and directed, although actors have no rehearsal time and the ensemble improvise scenes while filming them. The series of films began with This Is Spinal Tap (which he did not direct) and continued with Waiting for Guffman, Best in Show, A Mighty Wind, For Your Consideration, and Mascots.",
+                        "Birth": "1948-02-05"
+                    },
+                    "Actors": [],
+                    "_id": "603d8f20244e788f0d74b721",
+                    "Title": "Waiting for Guffman",
+                    "Description": "Waiting for Guffman is a 1996 American mockumentary comedy film written by Christopher Guest and Eugene Levy, and directed by Guest. The film's ensemble cast includes Guest, Levy, Catherine O'Hara, Fred Willard, and Parker Posey.",
+                    "Year": "1997-01-31",
+                    "ImagePath": "waitingforguffman.png",
+                    "Featured": true
+                }
             </td>
         </tr>
         <tr>
-            <td>Return data about a genre (description) by name/title (e.g., "Sci-Fi")</td>
-            <td>/movies/title/genre</td>
+            <td>Return data about a single movie by title</td>
             <td>GET</td>
+            <td>/movies/:Title</td>
+            <td>Movie Title</td>
             <td>None</td>
-            <td>
-                a JSON object holding data about a single movie's genre by title like this:
-                { title: "Black Panther", genre: ["Action, Adventure, Sci-Fi"],},
-                },
+            <td>A JSON object with data about a specific movie. Structure example:
+                <br>{
+                    "Genre": {
+                        "Name": "Comedy",
+                        "Description": "Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect."
+                    },
+                    "Director": {
+                        "Name": "Christopher Guest",
+                        "Bio": "Christopher Guest is an American–British screenwriter, composer, musician, director, actor, and comedian. Guest is most widely known in Hollywood for having written, directed, and starred in his series of comedy films shot in mock-documentary (mockumentary) style. Many scenes and character backgrounds in Guest's films are written and directed, although actors have no rehearsal time and the ensemble improvise scenes while filming them. The series of films began with This Is Spinal Tap (which he did not direct) and continued with Waiting for Guffman, Best in Show, A Mighty Wind, For Your Consideration, and Mascots.",
+                        "Birth": "1948-02-05"
+                    },
+                    "Actors": [],
+                    "_id": "603d8f20244e788f0d74b721",
+                    "Title": "Waiting for Guffman",
+                    "Description": "Waiting for Guffman is a 1996 American mockumentary comedy film written by Christopher Guest and Eugene Levy, and directed by Guest. The film's ensemble cast includes Guest, Levy, Catherine O'Hara, Fred Willard, and Parker Posey.",
+                    "Year": "1997-01-31",
+                    "ImagePath": "waitingforguffman.png",
+                    "Featured": true
+                }
             </td>
         </tr>
         <tr>
-            <td>Return array of data about a director (bio, birth year, death year) by name</td>
-            <td>/movies/director</td>
+            <td>Return data about a genre by name/title</td>
             <td>GET</td>
+            <td>/movies/genres/:Title</td>
+            <td>Movie Title</td>
             <td>None</td>
-            <td>
-                a JSON object holding data about a director and his bio by name like this:
-                {
-                director: []
-                },
+            <td>A JSON object with data about the genre of a movie. Structure example:
+                <br>{
+                <br>"Name": "Science Fiction",
+                <br>"Description": "Science Fiction or (SCI-FI) is a film genre that uses speculative, fictional science-based depictions of phenomena that are not fully accepted by mainstream science, such as extraterrestrial lifeforms, alien worlds, extrasensory perception and time travel, along with futuristic elements such as spacecraft, robots, cyborgs, interstellar travel or other technologies."
+                <br>}
+            </td>
+        </tr>
+        <tr>
+            <td>Return data about a director by name</td>
+            <td>GET</td>
+            <td>/movies/directors/:Name</td>
+            <td>Director's Name</td>
+            <td>None</td>
+            <td>A JSON object with data about a director. Structure example:
+                <br>{
+                <br>"Name": "Guillermo del Toro",
+                <br>"Bio": "Guillermo del Toro is a Mexican filmmaker, author, actor, and former special effects makeup artist. He is best known for the Academy Award-winning fantasy films Pan's Labyrinth (2006) and The Shape of Water (2017), winning the Oscars for Best Director and Best Picture for the latter.",
+                <br>"Birth": "1964-10-09"
+                <br>}
+            </td>
+        </tr>
+        <tr>
+            <td>Return list of all users</td>
+            <td>GET</td>
+            <td>/users</td>
+            <td>None</td>
+            <td>None</td>
+            <td>A JSON object with data about all registered users. Structure example:
+                <br>{
+                <br>"FavoriteMovies": [
+                <br>    "603d8b23244e788f0d74b71d",
+                <br>    "603d8c5b244e788f0d74b71e"
+                <br>],
+                <br>"_id": "603d6668244e788f0d74b713",
+                <br>"FirstName": "Dizzy",
+                <br>"LastName": "Gillespie",
+                <br>"Username": "jazzfan",
+                <br>"Password": "password",
+                <br>"Email": "jazzfan@email.com",
+                <br>"BirthDate": "1981-02-03"
+                <br>}
             </td>
         </tr>
         <tr>
             <td>Allow new users to register</td>
-            <td>/users/registration</td>
             <td>POST</td>
-            <td></td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td>Allow users to update their user info (username)</td>
             <td>/users</td>
-            <td>PUT</td>
-            <td>
-                A JSON object holding data about the user info to update, structured like:
-                {
-                name : "New Username",
-                email: newusername@email.com
-                }
-            </td>
-            <td>
-                A text message indicating the user info has been updated sucessfully.
-            </td>
-        </tr>
-        <tr>
-            <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been
-                added—more
-                on this later)</td>
-            <td>users/movies</td>
-            <td>PUT</td>
-            <td>
-                A JSON object holding data about the user info to add, structured like:
-                {
-                name : "User",
-                movies : {
-                title: '',
-                starring: []
-                }
-                }
-            </td>
-            <td>
-                A text message indicating the movie was added.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Allow users to remove a movie from their list of favorites (showing only a text that a movie has been
-                removed—more on this later)
-            </td>
-            <td>users/title</td>
-            <td>DELETE</td>
             <td>None</td>
-            <td>
-                A text message indicating the movie was removed
+            <td>A JSON object with data about the user registering/being added. Structure example:
+                <br>{
+                    <br>"FirstName": "Dizzy",
+                    <br>"LastName": "Gillespie",
+                    <br>"Username": "jazzfan",
+                    <br>"Password": "password",
+                    <br>"Email": "jazzfan@email.com",
+                    <br>"BirthDate": "1981-02-03Z"
+                <br>}
+            </td>
+            <td>A JSON object with data about the user that was registered/added. Structure example:
+                <br>{
+                    <br>"_id": "603d6668244e788f0d74b713",
+                    <br>"FirstName": "Dizzy",
+                    <br>"LastName": "Gillespie",
+                    <br>"Username": "jazzfan",
+                    <br>"Password": "password",
+                    <br>"Email": "jazzfan@email.com",
+                    <br>"BirthDate": "1981-02-03"
+                <br>}
             </td>
         </tr>
         <tr>
-            <td>
-                Allow existing users to deregister (showing only a text that a user email has been removed—more on this
-                later)
-            </td>
-            <td>users/email</td>
-            <td>DELETE</td>
+            <td>Return information for a single user based on username</td>
+            <td>GET</td>
+            <td>/users/:Username</td>
+            <td>Username</td>
             <td>None</td>
-            <td>
-                A text message indicating that the user has been deleted
+            <td>A JSON object with data about the user. Structure example:
+                <br>{
+                    <br>"FavoriteMovies": [
+                    <br>    "603d8b23244e788f0d74b71d",
+                    <br>    "603d8c5b244e788f0d74b71e"
+                    <br>],
+                    <br>"_id": "603d6668244e788f0d74b713",
+                    <br>"FirstName": "Dizzy",
+                    <br>"LastName": "Gillespie",
+                    <br>"Username": "jazzfan",
+                    <br>"Password": "password",
+                    <br>"Email": "jazzfan@email.com",
+                    <br>"BirthDate": "1981-02-03"
+                    <br>}
             </td>
         </tr>
-
+        <tr>
+            <td>Allow users to update their user info based on username</td>
+            <td>PUT</td>
+            <td>/users/:Username</td>
+            <td>Username</td>
+            <td>None</td>
+            <td>A text message confirming successful update of user information and JSON object showing the updated information. Structure example:
+                <br>{
+                    <br>"FavoriteMovies": [
+                    <br>    "603d8b23244e788f0d74b71d",
+                    <br>    "603d8c5b244e788f0d74b71e",
+                    <br>],
+                    <br>"_id": "603d6668244e788f0d74b713",
+                    <br>"FirstName": "Dizzy",
+                    <br>"LastName": "Gillespie",
+                    <br>"Username": "jazzfan",
+                    <br>"Password": "changepassword",
+                    <br>"Email": "jazzfan@email.com",
+                    <br>"BirthDate": "1981-02-03"
+                    <br>}
+            </td>
+        </tr>
+        <tr>
+            <td>Allow users to add a movie to their list of favorites</td>
+            <td>POST</td>
+            <td>/users/:Username/Movies/:MovieID</td>
+            <td>Username, Movie Title</td>
+            <td>None</td>
+            <td>A text message confirming the selected movie was added to favorites and JSON object showing the updated information. Structure example:
+                <br>{
+                    <br>"FavoriteMovies": [
+                    <br>    "603d8b23244e788f0d74b71d",
+                    <br>    "603d8c5b244e788f0d74b71e",
+                    <br>    "603d8e5c244e788f0d74b720"
+                    <br>],
+                    <br>"_id": "603d6668244e788f0d74b713",
+                    <br>"FirstName": "Dizzy",
+                    <br>"LastName": "Gillespie",
+                    <br>"Username": "jazzfan",
+                    <br>"Password": "password",
+                    <br>"Email": "jazzfan@email.com",
+                    <br>"BirthDate": "1981-02-03"
+                    <br>}
+            </td>
+        </tr>
+        <tr>
+            <td>Allow users to remove a movie to their list of favorites</td>
+            <td>DELETE</td>
+            <td>/users/:Username/Movies/:MovieID</td>
+            <td>Username, Movie Title</td>
+            <td>None</td>
+            <td>A text message confirming the selected movie was removed from favorites and JSON object showing the updated information. Structure example:
+                <br>{
+                    <br>"FavoriteMovies": [
+                    <br>    "603d8b23244e788f0d74b71d",
+                    <br>    "603d8e5c244e788f0d74b720"
+                    <br>],
+                    <br>"_id": "603d6668244e788f0d74b713",
+                    <br>"FirstName": "Dizzy",
+                    <br>"LastName": "Gillespie",
+                    <br>"Username": "jazzfan",
+                    <br>"Password": "password",
+                    <br>"Email": "jazzfan@email.com",
+                    <br>"BirthDate": "1981-02-03"
+                    <br>}
+            </td>
+        </tr>
+        <tr>
+            <td>Allow existing users to deregister</td>
+            <td>DELETE</td>
+            <td>/users/:Username</td>
+            <td>Username</td>
+            <td>None</td>
+            <td>A text message confirming successful removal of user.</td>
+        </tr>
     </table>
 
 </body>
