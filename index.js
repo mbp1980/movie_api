@@ -56,9 +56,14 @@ app.get("/movies/:Title", (req, res) => {
   });
 
 app.get("/movies/genres/:Title", (req, res) => {
-    Movies.findOne({ Title: req.params.Title })
+    Movies.find()
       .then((movies) => {
-        res.json(movies.Genre);
+        const genre = movies.find((movie) => movie.Genre.Name === req.params.Title)
+        if (genre) {
+                  res.json(genre.Genre);
+        } else {
+            res.status(400).send("Error: No such genre");
+        }
       })
       .catch((err) => {
         console.error(err);
