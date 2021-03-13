@@ -52,8 +52,7 @@ app.use((err, req, res, next) => {
 });
 
 // get requests
-app.get("/", passport.authenticate("jwt", { session: false }),
- (req, res) => {
+app.get("/", (req, res) => {
     res.status(200).send("Welcome to my movie app!");
 });
 
