@@ -7,9 +7,9 @@ require("./passport"); //Local passport file
 
 
 let generateJWTToken = (user) => {
-    return jwt.sogn(user, jwtSecret, {
+    return jwt.sign(user, jwtSecret, {
         subject: user.Username, //This is the username that's being encoded in the JWT
-        sxpireIn: "7d", //token will expire in 7 days
+        expireIn: "7d", //token will expire in 7 days
         algorithm: "HS256"//this is used to "sign" or encode the values of JWT
     });
 }
@@ -18,7 +18,7 @@ let generateJWTToken = (user) => {
 //POST login
 module.exports = (router) => {
     router.post("/login", (req, res) => {
-        passport.authentication("local", { session: false}, 
+        passport.authenticate("local", { session: false}, 
         (error,user, info) => {
             if (error || !user) {
                 return res.status(400).json({
