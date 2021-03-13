@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Models = require("./models.js");
+const passport = require("passport");
+require("./passport");
 
 const Movies = Models.Movie;//model names defined in models.js
 const Users = Models.User;
@@ -22,6 +24,8 @@ app.use(express.static("public"));
 
 app.use(bodyParser.json());
 
+let auth = require("./auth")(app);
+
 // middleware to detect errors
 app.use((err, req, res, next) => {
     console.error(err.stack);
@@ -33,7 +37,8 @@ app.get("/", (req, res) => {
     res.status(200).send("Welcome to my movie app!");
 });
 
-app.get("/movies", (req, res) => {
+app.get("/movies", passport.authenticate("jwt", { session: false }),
+ (req, res) => {
     Movies.find()
       .then((movies) => {
         res.status(201).json(movies);
@@ -55,7 +60,7 @@ app.get("/movies/:Title", (req, res) => {
       });
   });
 
-app.get("/movies/genres/:Title", (req, res) => {
+app.get("/movies/genres/:Name", (req, res) => {
     Movies.find()
       .then((movies) => {
         const genre = movies.find((movie) => movie.Genre.Name === req.params.Title)
@@ -74,7 +79,7 @@ app.get("/movies/genres/:Title", (req, res) => {
 app.get("/movies/directors/:Name", (req, res) => {
     Movies.findOne({ "Director.Name": req.params.Name })
     .then((director) => {
-        res.status(201).json(director.Director);
+        res.status(200).json(director.Director);
     })
     .catch((err) => {
         console.error(err);
@@ -89,7 +94,7 @@ app.get("/documentation", (req, res) => {
 app.get("/users", (req, res) => {
     Users.find()
       .then((users) => {
-        res.status(201).json(users);
+        res.status(200).json(users);
       })
       .catch((err) => {
         console.error(err);
