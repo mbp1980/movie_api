@@ -1,4 +1,4 @@
-{"_id":{"$oid":"603d6668244e788f0d74b713"},"FirstName":"Dizzy","LastName":"Gillespie","UserName":"jazzfan","Password":"password","Email":"jazzfan@email.com","BirthDate":"1981-02-03","FavoriteMovies":"Black Panther"}
-{"_id":{"$oid":"603d6762244e788f0d74b714"},"FirstName":"Alex","LastName":"Gordon","UserName":"royalsfan","Password":"password","Email":"royalsfan@email.com","BirthDate":"1980-03-04","FavoriteMovies":"Black Panther"}
-{"_id":{"$oid":"603d6dce244e788f0d74b715"},"FirstName":"Peter","LastName":"Griffin","UserName":"moviebuff","Password":"password","Email":"moviebuff@email.com","BirthDate":"1983-04-05","FavoriteMovies":"The Avengers"}
-{"_id":{"$oid":"603d6f1f244e788f0d74b716"},"FirstName":"Arthur","LastName":"Bryant","Username":"kcmasterpiece","Password":"password","Email":"kcmasterpiece@email.com","BirthDate":"1980-01-02","FavoriteMovies":"Coming to America"}
+{"_id":{"$oid":"606672e1060ee97c53f8050e"},"FirstName":"Peter","LastName":"Griffin","UserName":"moviebuff","Password":"password","BirthDate":"1983-04-05","FavoriteMovies":"The Avengers"}
+{"_id":{"$oid":"606673ab060ee97c53f8050f"},"FirstName":"Alex","LastName":"Gordon","UserName":"royalsfan","Password":"password","BirthDate":"1980-03-04","FavoriteMovies":"Black Panther"}
+{"_id":{"$oid":"606673fb060ee97c53f80510"},"FirstName":"Dizzy","LastName":"Gillespie","UserName":"jazzfan","Password":"password","BirthDate":"1981-02-03","FavoriteMovies":"Black Panther"}
+{"_id":{"$oid":"606674d8060ee97c53f80511"},"FirstName":"Arthur","LastName":"Bryant","UserName":"kcmasterpiece","Password":"password","BirthDate":"1980-01-02","FavoriteMovies":"Coming to America"}
