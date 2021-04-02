@@ -1,31 +1,26 @@
+const app = express();
+const bodyParser = require("body-parser");
+const express = require("express");
 const mongoose = require("mongoose");
 const Models = require("./models.js");
 const passport = require("passport");
+const morgan = require("morgan");
+const { check, validationResult } = require("express-validator");
 require("./passport");
 
 const Movies = Models.Movie;//model names defined in models.js
 const Users = Models.User;
 
-// mongoose.connect("mongodb://localhost:27017/myFlixDB",
-// {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb://localhost:27017/myFlixDB", {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
-//this allows Mongoose to connect to that database so it can perform CRUD operations on the documents it contains
-
-
-const { response } = require("express");
-const express = require("express");
-const bodyParser = require("body-parser");
-    morgan = require("morgan");
-    uuid = require("uuid");
-const app = express();
 
 app.use(morgan("common"));
 
 const cors = require("cors");
 let allowedOrigins = ["http://localhost:1234"];
 
-const { check, validationResult } = require("express-validator");
+
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -33,7 +28,7 @@ app.use(cors({
     if(allowedOrigins.indexOf(origin)=== -1){
      // If a specific origin isn’t found on the list of allowed origins
      let message = "The CORS policy for this application doesn’t allow access from origin " + origin;
-     return callback(new Error(message ), false); 
+     return callback(new Error(message), false); 
     }
     return callback(null, true);
   }
@@ -44,6 +39,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 
 let auth = require("./auth")(app);
+require("./passport");
 
 // middleware to detect errors
 app.use((err, req, res, next) => {
@@ -128,7 +124,7 @@ app.get("/users", passport.authenticate("jwt", { session: false }),
  
 app.get("/users/:Username", passport.authenticate("jwt", { session: false }),
  (req, res) => {
-    Users.findOne({ Username: req.params.Username })
+    Users.findOne({ UserName: req.params.Username })
       .then((user) => {
         res.json(user);
       })
@@ -160,7 +156,7 @@ app.post("/users",
   }
 
   let hashedPassword = Users.hashPassword(req.body.Password);
-  Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+  Users.findOne({ UserName: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
         //If the user is found, send a response that it already exists
@@ -168,7 +164,7 @@ app.post("/users",
       } else {
         Users
           .create({
-            Username: req.body.Username,
+            UserName: req.body.Username,
             Password: hashedPassword,
             Email: req.body.Email,
             BirthDate: req.body.BirthDate
@@ -188,10 +184,10 @@ app.post("/users",
 
 app.put("/users/:Username", passport.authenticate("jwt", { session: false }),
  (req, res) => {
-    Users.findOneAndUpdate({ Username: req.params.Username }, 
+    Users.findOneAndUpdate({ UserName: req.params.Username }, 
     { $set:
       {
-        Username: req.body.Username,
+        UserName: req.body.Username,
         Password: req.body.Password,
         Email: req.body.Email,
         BirthDate: req.body.BirthDate
