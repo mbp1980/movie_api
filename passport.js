@@ -21,16 +21,17 @@ let Users = Models.User,
 
     if (!user) {
       console.log("incorrect username");
-      return callback(null, false, {message: "Incorrect username."});
+      return callback(null, false, { message: "Incorrect Username." });
     }
     if (!user.validatePassword(password)) {
         console.log("incorrect password");
-        return callback(null, false, {message: "Incorrect Password"});
+        return callback(null, false, { message: "Incorrect Password" });
     }
 
     console.log("finished");
     return callback(null, user);
   });
+
 }));
 
 passport.use(new JWTStrategy({
