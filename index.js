@@ -1,4 +1,3 @@
-const app = express();
 const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -8,6 +7,8 @@ const morgan = require("morgan");
 const { check, validationResult } = require("express-validator");
 require("./passport");
 
+const app = express();
+
 const Movies = Models.Movie;//model names defined in models.js
 const Users = Models.User;
 
@@ -15,11 +16,13 @@ const Users = Models.User;
 mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 
-app.use(morgan("common"));
+
 
 const cors = require("cors");
 let allowedOrigins = ["http://localhost:1234"];
 
+
+app.use(morgan("common"));
 
 
 app.use(cors({
