@@ -127,7 +127,7 @@ app.get("/users", passport.authenticate("jwt", { session: false }),
  
 app.get("/users/:Username", passport.authenticate("jwt", { session: false }),
  (req, res) => {
-    Users.findOne({ UserName: req.params.Username })
+    Users.findOne({ Username: req.params.Username })
       .then((user) => {
         res.json(user);
       })
@@ -159,7 +159,7 @@ app.post("/users",
   }
 
   let hashedPassword = Users.hashPassword(req.body.Password);
-  Users.findOne({ UserName: req.body.Username }) // Search to see if a user with the requested username already exists
+  Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
         //If the user is found, send a response that it already exists
@@ -167,7 +167,7 @@ app.post("/users",
       } else {
         Users
           .create({
-            UserName: req.body.Username,
+            Username: req.body.Username,
             Password: hashedPassword,
             Email: req.body.Email,
             BirthDate: req.body.BirthDate
@@ -187,10 +187,10 @@ app.post("/users",
 
 app.put("/users/:Username", passport.authenticate("jwt", { session: false }),
  (req, res) => {
-    Users.findOneAndUpdate({ UserName: req.params.Username }, 
+    Users.findOneAndUpdate({ Username: req.params.Username }, 
     { $set:
       {
-        UserName: req.body.Username,
+        Username: req.body.Username,
         Password: req.body.Password,
         Email: req.body.Email,
         BirthDate: req.body.BirthDate
